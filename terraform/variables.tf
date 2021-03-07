@@ -2,32 +2,50 @@
 # GCP Setup Info
 # #############################################################################
 
-variable "google_credentials" {
-  description = "Contents of a JSON keyfile of an account with write access to the project"
-}
-
-variable "google_project" {
-  description = "The GCP project to use for this run"
-}
-
-variable "google_region" {
-  description = "The GCP region"
-}
-
-variable "google_zone" {
-  description = "The GCP zone"
+variable "gcp_config" {
+  description = "The attributes of GCP"
+  type = object({
+    credentials  = string
+    account_id   = string
+    display_name = string
+    project_id   = string
+    region       = string
+    zone         = string
+  })
 }
 
 # #############################################################################
 # Kubernetes Cluster Info
 # #############################################################################
 
-variable "cluster_name" {
-  description = "The name of the Kubernetes cluster"
+variable "cluster_config" {
+  description = "The attributes of GCP Cluster"
+  type = object({
+    cluster_name           = string
+    init_node              = number
+    location               = string
+    subnets                = string
+    network                = string
+    subnetwork             = string
+    ip_range_pods_name     = string
+    ip_range_pods_cidr     = string
+    ip_range_services_name = string
+    ip_range_services_cidr = string
+    node_pools = object({
+      machine_type   = string
+      node_locations = string
+      min_count      = number
+      max_count      = number
+      disk_size_gb   = number
+    })
+  })
 }
 
-variable "cluster_init_node" {
-  description = "The node count of the Kubernetes cluster"
-  type        = number
-  default     = 1
+# #############################################################################
+# Additional Info
+# #############################################################################
+
+variable "env" {
+  description = "The environment for the GKE cluster"
+  default     = "development"
 }

@@ -11,6 +11,8 @@
 # ##########################################################
 # Project-specific ignores - use for excluding binaries, etc
 terraform/**.json
+.terraform
+.terraform.*
 
 # #######
 # General
